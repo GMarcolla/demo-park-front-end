@@ -1,9 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { Login } from '../interfaces/Login';
+import { LoginResponse } from '../interfaces/LoginResponse';
 import { Response } from '../interfaces/Response';
+import { log } from 'console';
 
 @Injectable({
   providedIn: 'root',
@@ -11,11 +12,19 @@ import { Response } from '../interfaces/Response';
 export class LoginService {
   baseApiUrl = environment.baseApiUrl;
   apiUrl: string = '';
+  constructor(private httpClient: HttpClient) {}
 
-  constructor(private http: HttpClient) {}
-
-  login(username: string, password: string): Observable<Response<Login>> {
-    this.apiUrl = this.baseApiUrl + '/login';
-    return this.http.post<Response<Login>>(this.apiUrl, { username, password });
+  login(username: string, password: string) {
+    console.log(username, password);
+    return this.httpClient
+      .post<LoginResponse>('http://localhost:8080/api/v1/auth', {
+        username,
+        password,
+      })
+      .pipe(
+        tap((value) => {
+          sessionStorage.setItem('auth-token', value.token);
+        })
+      );
   }
 }

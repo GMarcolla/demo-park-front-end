@@ -5,6 +5,7 @@ import {
   FormGroupDirective,
   Validators,
 } from '@angular/forms';
+import { Router } from '@angular/router';
 import { LoginService } from 'src/app/services/login.service';
 
 @Component({
@@ -14,8 +15,9 @@ import { LoginService } from 'src/app/services/login.service';
 })
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
+  errorMessage: string = '';
 
-  constructor(private loginService: LoginService) {}
+  constructor(private loginService: LoginService, private router: Router) {}
 
   get username() {
     return this.loginForm.get('username');
@@ -33,11 +35,16 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(formDir: FormGroupDirective): void {
-    console.log(this.username!.value, this.password!.value);
+    if (this.loginForm.invalid) {
+      return;
+    }
+
     this.loginService
-      .login(this.username!.value, this.password!.value)
-      .subscribe(() => {
-        console.log('Login successful');
+      .login(this.loginForm.value.username, this.loginForm.value.password)
+      .subscribe({
+        next: () => this.router.navigate(['/']),
+        error: (e) =>
+          (this.errorMessage = `Erro ao efetuar login: ${e.error.message}`),
       });
   }
 }

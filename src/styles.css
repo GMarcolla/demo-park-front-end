@@ -1,1 +1,14 @@
-/* You can add global styles to this file, and also import other style files */
+* {
+  padding: 0;
+  margin: 0;
+  font-family: Cambria;
+  box-sizing: border-box;
+  color: #444;
+}
+
+.validation-error p {
+  color: #dc3545;
+  margin-top: 0.4em;
+  border-left: 3px solid #dc3545;
+  padding-left: 0.2em;
+}
