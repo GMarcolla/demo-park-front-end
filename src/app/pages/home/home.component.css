@@ -1,0 +1,9 @@
+button {
+  display: block;
+  margin-left: auto;
+  transition: background-color 1s;
+}
+
+button:hover {
+  background-color: #007bff;
+}
