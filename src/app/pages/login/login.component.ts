@@ -6,6 +6,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
+import { UserRole } from 'src/app/enumerables/UserRole';
 import { LoginService } from 'src/app/services/login.service';
 
 @Component({
@@ -42,7 +43,13 @@ export class LoginComponent implements OnInit {
     this.loginService
       .login(this.loginForm.value.username, this.loginForm.value.password)
       .subscribe({
-        next: () => this.router.navigate(['/']),
+        next: (response) => {
+          if (response.role === UserRole.ROLE_ADMIN) {
+            this.router.navigate(['']);
+            return;
+          }
+          this.router.navigate(['/parkings']);
+        },
         error: (e) =>
           (this.errorMessage = `Erro ao efetuar login: ${e.error.message}`),
       });

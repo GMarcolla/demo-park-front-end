@@ -1,9 +1,27 @@
-button {
+.login-btn {
   display: block;
   margin-left: auto;
   transition: background-color 1s;
+  font-weight: bold;
+  color: #fff;
+  font-size: 18px;
 }
 
-button:hover {
-  background-color: #007bff;
+.header {
+  background-color: #4e839f;
+  color: #fff;
+  width: 100%;
+  min-height: 60px;
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
+  box-sizing: border-box;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #fff;
+  margin: 0;
 }

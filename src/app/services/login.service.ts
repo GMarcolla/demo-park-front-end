@@ -10,14 +10,13 @@ import { log } from 'console';
   providedIn: 'root',
 })
 export class LoginService {
-  baseApiUrl = environment.baseApiUrl;
+  baseApiUrl = environment.baseApiUrl + '/auth';
   apiUrl: string = '';
   constructor(private httpClient: HttpClient) {}
 
   login(username: string, password: string) {
-    console.log(username, password);
     return this.httpClient
-      .post<LoginResponse>('http://localhost:8080/api/v1/auth', {
+      .post<LoginResponse>(this.baseApiUrl, {
         username,
         password,
       })
