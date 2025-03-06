@@ -9,6 +9,12 @@ import { EstacionamentoService } from 'src/app/services/estacionamento.service';
 })
 export class ClientParkingsComponent implements OnInit {
   parkingList: Estacionamento[] = [];
+  displayedColumns: string[] = [
+    'recibo',
+    'clienteCpf',
+    'dataEntrada',
+    'dataSaida',
+  ];
   data: any;
   constructor(private estacionamentoService: EstacionamentoService) {}
 

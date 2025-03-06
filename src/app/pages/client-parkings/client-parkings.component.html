@@ -1,7 +1,30 @@
 <h1>Estacionamentos</h1>
 
-<p *ngFor="let parking of parkingList">
-  <strong>Recibo: {{ parking.recibo }}</strong
-  ><br />
-  CPF: {{ parking.clienteCpf }}
-</p>
+<table mat-table [dataSource]="parkingList" class="mat-elevation-z8">
+  <!-- Recibo Column -->
+  <ng-container matColumnDef="recibo">
+    <th mat-header-cell *matHeaderCellDef>Recibo</th>
+    <td mat-cell *matCellDef="let parking">{{ parking.recibo }}</td>
+  </ng-container>
+
+  <!-- CPF Column -->
+  <ng-container matColumnDef="clienteCpf">
+    <th mat-header-cell *matHeaderCellDef>CPF</th>
+    <td mat-cell *matCellDef="let parking">{{ parking.clienteCpf }}</td>
+  </ng-container>
+
+  <!-- DataEntrada Column -->
+  <ng-container matColumnDef="dataEntrada">
+    <th mat-header-cell *matHeaderCellDef>Data entrada</th>
+    <td mat-cell *matCellDef="let parking">{{ parking.dataEntrada }}</td>
+  </ng-container>
+
+  <!-- DataSaida Column -->
+  <ng-container matColumnDef="dataSaida">
+    <th mat-header-cell *matHeaderCellDef>Data saída</th>
+    <td mat-cell *matCellDef="let parking">{{ parking.dataSaida }}</td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+</table>
